@@ -1,0 +1,31 @@
+{
+  "name": "logrx",
+  "version": "0.0.1",
+  "description": "Small, configurable logging library on top of rxjs",
+  "main": "./lib/main.js",
+  "types": "./lib/main.d.ts",
+  "repository": "https://github.com/oliamb/logrx",
+  "author": "Olivier Amblet",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "lint": "tslint",
+    "format": "prettier"
+  },
+  "jest": {
+    "moduleFileExtensions": ["ts", "js"],
+    "transform": {
+      "^.+\\.(ts)$": "<rootDir>/preprocessor.js"
+    },
+    "testMatch": ["**/lib/*.spec.ts"]
+  },
+  "devDependencies": {
+    "@types/jest": "~21.1.5",
+    "jest": "~21.1.5",
+    "tslint": "^5.8.0"
+  },
+  "dependencies": {
+    "rxjs": "^5.5.2",
+    "typescript": "*"
+  }
+}
