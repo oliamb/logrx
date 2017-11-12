@@ -23,8 +23,8 @@
     "testMatch": ["**/lib/*.spec.ts"]
   },
   "devDependencies": {
-    "@types/jest": "~21.1.5",
-    "jest": "~21.1.5",
+    "@types/jest": "^21.1.5",
+    "jest": "*",
     "prettier": "^1.8.2",
     "tslint": "^5.8.0"
   },
