@@ -1,4 +1,6 @@
-# logrx is an opiniated logger built on top of ngrx, written in typescript
+# logrx, a javascript logger built with ngrx
+
+![build status](https://travis-ci.org/oliamb/logrx.svg?branch=master)
 
 Features:
 
