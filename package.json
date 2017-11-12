@@ -9,8 +9,11 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "lint": "tslint",
-    "format": "prettier"
+    "lint": "tslint .",
+    "format": "$(npm bin)/prettier",
+    "format-check":
+      "$(npm bin)/prettier --print-width=100 --single-quote=true --tab-width=2 --trailing-comma=all -l **/*.ts",
+    "ci": "npm run lint && npm run format-check && npm test"
   },
   "jest": {
     "moduleFileExtensions": ["ts", "js"],
@@ -22,6 +25,7 @@
   "devDependencies": {
     "@types/jest": "~21.1.5",
     "jest": "~21.1.5",
+    "prettier": "^1.8.2",
     "tslint": "^5.8.0"
   },
   "dependencies": {
