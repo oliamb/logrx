@@ -1,4 +1,4 @@
-# logrx, a javascript logger built with ngrx
+# logrx, a javascript logger built with rxjs
 
 ![build status](https://travis-ci.org/oliamb/logrx.svg?branch=master)
 
