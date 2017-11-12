@@ -22,3 +22,7 @@ https://logging.apache.org/log4j/2.0/manual/architecture.html
 > ### Named Hierarchy
 >
 > A LoggerConfig is said to be an ancestor of another LoggerConfig if its name followed by a dot is a prefix of the descendant logger name. A LoggerConfig is said to be a parent of a child LoggerConfig if there are no ancestors between itself and the descendant LoggerConfig.
+
+## Contributing
+
+This project is at a very early stage and will be open to contributions as soon as it proved to be an interesting library.
