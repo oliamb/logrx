@@ -1,53 +1,22 @@
-import { Console, Logger } from './logger';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Level } from './const';
+import { DefaultLoggerImpl } from './logger';
+import { DefaultLoggerConfigImpl } from './logger-config';
+import { RootLoggerConfigImpl } from './root-logger-config';
+import { behaveLikeAConsole, IFactory } from './testing';
+import { ILogger } from './types';
 
-class FakeConsole implements Console {
-  log(message?: any, ...optionalParams: any[]): void {}
-  error(message?: any, ...optionalParams: any[]): void {}
-}
-
-class FakeLogger implements Logger {
-  name = 'FakeLogger';
-  log(message?: any, ...optionalParams: any[]): void {}
-  error(message?: any, ...optionalParams: any[]): void {}
-}
-
-describe('Console', () => {
-  behaveLikeAConsole(new FakeConsole());
+describe('DefaultLoggerImpl', () => {
+  behavesLikeALogger(loggerConfig$ => new DefaultLoggerImpl(loggerConfig$));
 });
 
-describe('Logger interface', () => {
-  behavesLikeALogger(new FakeLogger());
-});
-
-export function behavesLikeALogger(aLogger: Logger) {
+export function behavesLikeALogger(factory: IFactory) {
   describe('behaves like a logger', () => {
-    behaveLikeAConsole(aLogger);
+    behaveLikeAConsole(factory);
 
     it('should have a name', () => {
+      const aLogger = factory(new BehaviorSubject(new RootLoggerConfigImpl()));
       expect(aLogger.name).toBeDefined();
-    });
-  });
-}
-
-export function behaveLikeAConsole(aConsole: Console) {
-  describe('its log method', () => {
-    behavesLikeALoggingMethod(aConsole, 'log');
-    behavesLikeALoggingMethod(aConsole, 'error');
-  });
-}
-
-export function behavesLikeALoggingMethod(aConsole: Console, methodName: keyof Console) {
-  describe('behaves like a logging method', () => {
-    it('supports a log function', () => {
-      aConsole[methodName]('message');
-    });
-
-    it('supports a log function with multiple parameters', () => {
-      aConsole[methodName]('message', 'a', 'b', 'c');
-    });
-
-    it('supports a log function with various parameter types', () => {
-      aConsole[methodName]('message', 1, [2, 3], { 4: 5 });
     });
   });
 }

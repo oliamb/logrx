@@ -3,9 +3,11 @@
   "extends": ["tslint:recommended"],
   "jsRules": {},
   "rules": {
+    "arrow-parens": false,
     "quotemark": {
       "options": ["single", "avoid-escape"]
-    }
+    },
+    "semicolon": [true, "always", "ignore-bound-class-methods"]
   },
   "rulesDirectory": []
 }

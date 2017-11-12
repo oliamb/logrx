@@ -1,42 +1,45 @@
-/**
- * Logger is the public interface to log new messages.
- *
- * It supports a subset of the standard Console interface.
- */
-export interface Console {
-  error(message?: any, ...optionalParams: any[]): void;
-  log(message?: any, ...optionalParams: any[]): void;
-  //   assert(test?: boolean, message?: string, ...optionalParams: any[]): void;
-  //   clear(): void;
-  //   count(countTitle?: string): void;
-  //   debug(message?: any, ...optionalParams: any[]): void;
-  //   dir(value?: any, ...optionalParams: any[]): void;
-  //   dirxml(value: any): void;
-  //   exception(message?: string, ...optionalParams: any[]): void;
-  //   group(groupTitle?: string, ...optionalParams: any[]): void;
-  //   groupCollapsed(groupTitle?: string, ...optionalParams: any[]): void;
-  //   groupEnd(): void;
-  //   info(message?: any, ...optionalParams: any[]): void;
-  //   profile(reportName?: string): void;
-  //   profileEnd(): void;
-  //   select(element: Element): void;
-  //   table(...data: any[]): void;
-  //   time(timerName?: string): void;
-  //   timeEnd(timerName?: string): void;
-  //   trace(message?: any, ...optionalParams: any[]): void;
-  //   warn(message?: any, ...optionalParams: any[]): void;
+import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators/map';
+import { Configuration } from './configuration';
+import { Level } from './const';
+import { IAppender, ILogger, ILoggerConfig } from './types';
+
+export class DefaultLoggerImpl implements ILogger {
+  private config: ILoggerConfig;
+
+  get name() {
+    return this.config && this.config.name;
+  }
+
+  constructor(loggerConfig$: Observable<ILoggerConfig>) {
+    loggerConfig$.subscribe(config => {
+      this.config = config;
+    });
+  }
+
+  public error(message?: any, ...optionalParams: any[]): void {
+    mapFirstDefinedValue(this.config, 'appenders', (appenders: IAppender[]) => {
+      appenders.map(appender => appender.log(Level.ERROR, message, ...optionalParams));
+    });
+  }
+
+  public log(message?: any, ...optionalParams: any[]): void {
+    mapFirstDefinedValue(this.config, 'appenders', (appenders: IAppender[]) => {
+      appenders.map(appender => appender.log(Level.DEBUG, message, ...optionalParams));
+    });
+  }
 }
 
-/**
- * A logger is loosely associated to a {LoggerConfig} throught its name.
- * It provides the API to log new messages.
- */
-export interface Logger extends Console {
-  name: string;
-}
-
-export class DefaultLoggerImpl implements Logger {
-  constructor(public readonly name: string) {}
-  error(message?: any, ...optionalParams: any[]): void {}
-  log(message?: any, ...optionalParams: any[]): void {}
+function mapFirstDefinedValue<K extends keyof ILoggerConfig, R>(
+  config: ILoggerConfig | null,
+  key: K,
+  fn: (fn: ILoggerConfig[K]) => R,
+): R | void {
+  if (!config) {
+    return;
+  }
+  if (config[key] === undefined) {
+    return mapFirstDefinedValue(config.parent, key, fn);
+  }
+  return fn(config[key]);
 }
