@@ -6,7 +6,7 @@ import { IAppender } from './types';
 describe('behaviour', () => {
   it('should log a simple message with the console', () => {
     spyOn(console, 'log');
-    const logger = getLogger('pix4d');
+    const logger = getLogger('test');
     logger.log('Hello World');
     expect(console.log).toHaveBeenCalledWith('Hello World');
   });
