@@ -1,6 +1,7 @@
 import { ConsoleAppender } from './console.appender';
 import { Level, ROOT_LOGGER_NAME } from './const';
 import { LoggerContext } from './logger-context';
+import { IAppender, IConfigDescriptor, ILogger } from './types';
 
 /**
  * Define a global context that can be accessed through static methods.

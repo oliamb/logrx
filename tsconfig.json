@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es5",
+    "target": "es6",
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
@@ -10,6 +10,6 @@
     "declaration": true,
     "outDir": "lib"
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "lib/*.spec.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules/", "src/*.spec.ts"]
 }
