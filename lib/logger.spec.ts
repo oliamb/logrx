@@ -15,7 +15,7 @@ export function behavesLikeALogger(factory: IFactory) {
     behaveLikeAConsole(factory);
 
     it('should have a name', () => {
-      const aLogger = factory(new BehaviorSubject(new RootLoggerConfigImpl()));
+      const aLogger = factory(new BehaviorSubject(new RootLoggerConfigImpl(Level.ERROR, [])));
       expect(aLogger.name).toBeDefined();
     });
   });

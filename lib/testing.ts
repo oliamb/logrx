@@ -19,6 +19,11 @@ export const createSpyObj = <T>(baseName: string, methodNames: Array<keyof T>): 
 export function behaveLikeAConsole(factory: IFactory) {
   behavesLikeALoggingMethod(factory, 'log');
   behavesLikeALoggingMethod(factory, 'error');
+  behavesLikeALoggingMethod(factory, 'debug');
+  behavesLikeALoggingMethod(factory, 'trace');
+  behavesLikeALoggingMethod(factory, 'info');
+  behavesLikeALoggingMethod(factory, 'warn');
+  behavesLikeALoggingMethod(factory, 'exception');
 }
 
 function behavesLikeALoggingMethodContext(factory: IFactory, methodName: keyof IConsole) {
@@ -27,7 +32,7 @@ function behavesLikeALoggingMethodContext(factory: IFactory, methodName: keyof I
     appenders: [appender],
     level: Level.ALL,
     name: `behavesLikeALoggingMethod.${methodName}`,
-    parent: new RootLoggerConfigImpl(),
+    parent: new RootLoggerConfigImpl(Level.ERROR, []),
   };
   const logger = factory(new BehaviorSubject(config).asObservable());
   return {
@@ -38,8 +43,13 @@ function behavesLikeALoggingMethodContext(factory: IFactory, methodName: keyof I
 
 export function behavesLikeALoggingMethod(factory: IFactory, methodName: keyof IConsole) {
   const expectedLevel: { [lvl: string]: Level } = {
+    debug: Level.DEBUG,
     error: Level.ERROR,
+    exception: Level.EXCEPTION,
+    info: Level.INFO,
     log: Level.DEBUG,
+    trace: Level.TRACE,
+    warn: Level.WARN,
   };
   describe(`${methodName}() behaves like a logging method`, () => {
     it('calls appender with a single parameters', () => {

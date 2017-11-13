@@ -24,6 +24,26 @@ export class DefaultLoggerImpl implements ILogger {
   public log(message?: any, ...optionalParams: any[]): void {
     logWith(this.config, Level.DEBUG, message, ...optionalParams);
   }
+
+  public debug(message?: any, ...optionalParams: any[]): void {
+    logWith(this.config, Level.DEBUG, message, ...optionalParams);
+  }
+
+  public exception(message?: string | undefined, ...optionalParams: any[]): void {
+    logWith(this.config, Level.EXCEPTION, message, ...optionalParams);
+  }
+
+  public info(message?: any, ...optionalParams: any[]): void {
+    logWith(this.config, Level.INFO, message, ...optionalParams);
+  }
+
+  public trace(message?: any, ...optionalParams: any[]): void {
+    logWith(this.config, Level.TRACE, message, ...optionalParams);
+  }
+
+  public warn(message?: any, ...optionalParams: any[]): void {
+    logWith(this.config, Level.WARN, message, ...optionalParams);
+  }
 }
 
 function mapFirstDefinedValue<K extends keyof ILoggerConfig, R>(
