@@ -18,7 +18,8 @@
       "$(npm bin)/prettier --print-width=100 --single-quote=true --tab-width=2 --trailing-comma=all -l src/**/*.ts",
     "ci": "npm run lint && npm run format-check && npm test && npm run compile",
     "prepublish":
-      "npm run clean && npm run compile && npm run lint && npm run format-check && npm run test"
+      "npm run clean && npm run compile && npm run lint && npm run format-check && npm run test",
+    "release": "standard-version"
   },
   "jest": {
     "moduleFileExtensions": ["ts", "js"],
@@ -32,6 +33,7 @@
     "jest": "*",
     "prettier": "^1.8.2",
     "rimraf": "^2.6.2",
+    "standard-version": "^4.2.0",
     "tslint": "^5.8.0"
   },
   "dependencies": {
