@@ -12,10 +12,13 @@
     "compile": "tsc -p ./tsconfig.json",
     "test": "jest",
     "lint": "tslint .",
-    "format": "$(npm bin)/prettier",
+    "format":
+      "$(npm bin)/prettier --print-width=100 --single-quote=true --tab-width=2 --trailing-comma=all -w src/**/*.ts",
     "format-check":
-      "$(npm bin)/prettier --print-width=100 --single-quote=true --tab-width=2 --trailing-comma=all -l **/*.ts",
-    "ci": "npm run lint && npm run format-check && npm test && npm run compile"
+      "$(npm bin)/prettier --print-width=100 --single-quote=true --tab-width=2 --trailing-comma=all -l src/**/*.ts",
+    "ci": "npm run lint && npm run format-check && npm test && npm run compile",
+    "prepublish":
+      "npm run clean && npm run compile && npm run lint && npm run format-check && npm run test"
   },
   "jest": {
     "moduleFileExtensions": ["ts", "js"],
