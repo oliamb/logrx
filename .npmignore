@@ -1,0 +1,11 @@
+src/
+node_modules/
+**/*.ts
+!**/*.d.ts
+
+preprocessor.js
+tsconfig*.json
+tslint*.json
+.travis.yml
+.editorconfig
+.gitignore

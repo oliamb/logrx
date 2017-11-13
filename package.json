@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "author": "Olivier Amblet",
   "description": "Small, configurable logging library on top of rxjs",
-  "main": "./lib/main.js",
-  "types": "./lib/main.d.ts",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "repository": "https://github.com/oliamb/logrx",
   "license": "MIT",
   "scripts": {
