@@ -19,11 +19,6 @@ export class LoggerContext {
 
   private configuration: Configuration = new Configuration();
 
-  constructor() {
-    this.configuration.addLoggerAppender(ROOT_LOGGER_NAME, new ConsoleAppender());
-    this.addAppenderFactory('console', () => new ConsoleAppender());
-  }
-
   public addAppenderFactory = (name: string, factory: AppenderFactory): void => {
     if (!factory) {
       // TODO: should we log something here?

@@ -67,8 +67,8 @@ export class Configuration {
       map(configs => {
         const config = configs && configs[ROOT_LOGGER_NAME];
         return new RootLoggerConfigImpl(
-          (config && config.level) || Level.DEBUG,
-          config && config.appenders,
+          (config && config.level) || Level.OFF,
+          (config && config.appenders) || [],
         );
       }),
     );
