@@ -1,6 +1,6 @@
 {
   "name": "logrx",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": "Olivier Amblet",
   "description": "Small, configurable logging library on top of rxjs",
   "main": "./lib/index.js",
@@ -12,21 +12,23 @@
     "compile": "tsc -p ./tsconfig.json",
     "test": "jest",
     "lint": "tslint .",
-    "format":
-      "$(npm bin)/prettier --print-width=100 --single-quote=true --tab-width=2 --trailing-comma=all -w src/**/*.ts",
-    "format-check":
-      "$(npm bin)/prettier --print-width=100 --single-quote=true --tab-width=2 --trailing-comma=all -l src/**/*.ts",
+    "format": "$(npm bin)/prettier --print-width=100 --single-quote=true --tab-width=2 --trailing-comma=all -w src/**/*.ts",
+    "format-check": "$(npm bin)/prettier --print-width=100 --single-quote=true --tab-width=2 --trailing-comma=all -l src/**/*.ts",
     "ci": "npm run lint && npm run format-check && npm test && npm run compile",
-    "prepublish":
-      "npm run clean && npm run compile && npm run lint && npm run format-check && npm run test",
+    "prepublish": "npm run clean && npm run compile && npm run lint && npm run format-check && npm run test",
     "release": "standard-version"
   },
   "jest": {
-    "moduleFileExtensions": ["ts", "js"],
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
     "transform": {
       "^.+\\.(ts)$": "<rootDir>/preprocessor.js"
     },
-    "testMatch": ["**/src/*.spec.ts"]
+    "testMatch": [
+      "**/src/*.spec.ts"
+    ]
   },
   "devDependencies": {
     "@types/jest": "^21.1.5",
