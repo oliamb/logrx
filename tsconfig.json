@@ -6,8 +6,10 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "declaration": true,
+    "outDir": "lib"
   },
-  "include": ["lib/**/*"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "lib/*.spec.ts"]
 }
