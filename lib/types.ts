@@ -53,3 +53,11 @@ export interface ILoggerConfig {
 export interface IAppender {
   log(level: Level, ...message: any[]): void;
 }
+
+export type AppenderFactory = () => IAppender;
+
+export interface IConfigDescriptor {
+  readonly name: string;
+  readonly appenders?: string[];
+  readonly level?: Level;
+}

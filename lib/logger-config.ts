@@ -1,11 +1,19 @@
 import { Level } from './const';
-import { ILoggerConfig } from './types';
+import { IAppender, ILoggerConfig } from './types';
 
 export class DefaultLoggerConfigImpl implements ILoggerConfig {
-  public readonly level?: Level;
-  public appenders = undefined;
+  private internalLevel?: Level;
 
-  constructor(public readonly name: string, public readonly parent: ILoggerConfig, level?: Level) {
-    this.level = level || parent.level;
+  constructor(
+    public readonly name: string,
+    public readonly parent: ILoggerConfig,
+    level?: Level,
+    public readonly appenders?: IAppender[],
+  ) {
+    this.internalLevel = level;
+  }
+
+  get level() {
+    return this.internalLevel || this.parent.level;
   }
 }

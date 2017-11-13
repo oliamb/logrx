@@ -9,3 +9,13 @@ export const globalContext = new LoggerContext();
  * files so the context can be considered a Singleton.
  */
 export const getLogger = globalContext.getLogger;
+
+/**
+ * add an appender to the global context.
+ */
+export const addAppenderFactory = globalContext.addAppenderFactory;
+
+/**
+ * configure the global context.
+ */
+export const configure = globalContext.configure;

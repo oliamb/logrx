@@ -11,19 +11,44 @@ import { Level, ROOT_LOGGER_NAME } from './const';
 import { DefaultLoggerImpl } from './logger';
 import { DefaultLoggerConfigImpl } from './logger-config';
 import { RootLoggerConfigImpl } from './root-logger-config';
-import { ILogger, ILoggerConfig } from './types';
+import { AppenderFactory, IAppender, IConfigDescriptor, ILogger, ILoggerConfig } from './types';
 
 export class LoggerContext {
+  private appenderFactories: { [name: string]: AppenderFactory } = {};
   private loggers: { [name: string]: ILogger } = {};
 
   private configuration: Configuration = new Configuration();
 
   constructor() {
     this.configuration.addLoggerAppender(ROOT_LOGGER_NAME, new ConsoleAppender());
+    this.addAppenderFactory('console', () => new ConsoleAppender());
   }
+
+  public addAppenderFactory = (name: string, factory: AppenderFactory): void => {
+    if (!factory) {
+      // TODO: should we log something here?
+      return;
+    }
+    this.appenderFactories[name] = factory;
+  };
+
+  public configure = (...descriptors: IConfigDescriptor[]) => {
+    for (const desc of descriptors) {
+      if (desc.appenders) {
+        for (const appenderName of desc.appenders) {
+          const factory = this.appenderFactories[appenderName];
+          if (factory) {
+            this.configuration.addLoggerAppender(desc.name, factory());
+          }
+        }
+      }
+      this.configuration.setLoggerLevel(desc.name, desc.level);
+    }
+  };
 
   /**
    * Retrieve a logger with the given name.
+   *
    * @param name
    */
   public getLogger = (name: string): ILogger => {

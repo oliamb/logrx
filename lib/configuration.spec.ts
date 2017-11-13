@@ -11,6 +11,9 @@ describe('Configuration', () => {
   describe('addLoggerAppender', () => {
     it('should add an appender to a given logger', () => {
       config.addLoggerAppender('test', new ConsoleAppender());
+      config
+        .getLoggerConfig$('test')
+        .subscribe(v => expect(v.appenders).toEqual([new ConsoleAppender()]));
     });
   });
 });

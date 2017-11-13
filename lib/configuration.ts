@@ -2,6 +2,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { combineLatest } from 'rxjs/operators/combineLatest';
 import { map } from 'rxjs/operators/map';
+import { tap } from 'rxjs/operators/tap';
 import { Level, ROOT_LOGGER_NAME } from './const';
 import { DefaultLoggerConfigImpl } from './logger-config';
 import { getLogger } from './logger-global-context';
@@ -13,34 +14,62 @@ import { IAppender, ILoggerConfig } from './types';
  */
 export class Configuration {
   private loggerConfigs$: BehaviorSubject<{
-    [name: string]: { appenders?: IAppender[] };
+    [name: string]: { appenders?: IAppender[]; level?: Level };
   }> = new BehaviorSubject({});
-  public addLoggerAppender(loggerName: string, appender: IAppender) {
-    const partialConfig = this.loggerConfigs$.value[name];
-    const appenders = partialConfig && partialConfig.appenders;
+
+  public addLoggerAppender = (loggerName: string, appender: IAppender) => {
+    if (!appender) {
+      return;
+    }
+    const loggerConfig = this.loggerConfigs$.value[loggerName];
+    const appenders = loggerConfig && loggerConfig.appenders;
     this.loggerConfigs$.next({
       ...this.loggerConfigs$.value,
-      [name]: {
+      [loggerName]: {
+        ...loggerConfig,
         appenders: appenders ? [...appenders, appender] : [appender],
       },
     });
-  }
+  };
+
+  public setLoggerLevel = (loggerName: string, level: Level | undefined) => {
+    const loggerConfig = this.loggerConfigs$.value[loggerName];
+    const appenders = loggerConfig && loggerConfig.appenders;
+    this.loggerConfigs$.next({
+      ...this.loggerConfigs$.value,
+      [loggerName]: {
+        ...loggerConfig,
+        level,
+      },
+    });
+  };
 
   public getLoggerConfig$(name: string): Observable<ILoggerConfig> {
     if (name === ROOT_LOGGER_NAME) {
       return this.getRootLoggerConfig$();
     }
     return this.getRootLoggerConfig$().pipe(
-      combineLatest(this.loggerConfigs$.pipe(map(config => config[name]))),
-      map(([root, config]) => new DefaultLoggerConfigImpl(name, root)),
+      combineLatest(this.loggerConfigs$.pipe(map(configs => configs && configs[name]))),
+      // TODO: add level from config
+      map(([root, config]) => {
+        return new DefaultLoggerConfigImpl(
+          name,
+          root,
+          config && config.level,
+          config && config.appenders,
+        );
+      }),
     );
   }
 
   private getRootLoggerConfig$ = () => {
     return this.loggerConfigs$.pipe(
       map(configs => {
-        const config = configs[name];
-        return new RootLoggerConfigImpl(Level.ALL, config.appenders);
+        const config = configs && configs[ROOT_LOGGER_NAME];
+        return new RootLoggerConfigImpl(
+          (config && config.level) || Level.DEBUG,
+          config && config.appenders,
+        );
       }),
     );
   };

@@ -7,7 +7,8 @@
     "quotemark": {
       "options": ["single", "avoid-escape"]
     },
-    "semicolon": [true, "always", "ignore-bound-class-methods"]
+    "semicolon": [true, "always", "ignore-bound-class-methods"],
+    "coma": [false]
   },
   "rulesDirectory": []
 }

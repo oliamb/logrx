@@ -18,15 +18,11 @@ export class DefaultLoggerImpl implements ILogger {
   }
 
   public error(message?: any, ...optionalParams: any[]): void {
-    mapFirstDefinedValue(this.config, 'appenders', (appenders: IAppender[]) => {
-      appenders.map(appender => appender.log(Level.ERROR, message, ...optionalParams));
-    });
+    logWith(this.config, Level.ERROR, message, ...optionalParams);
   }
 
   public log(message?: any, ...optionalParams: any[]): void {
-    mapFirstDefinedValue(this.config, 'appenders', (appenders: IAppender[]) => {
-      appenders.map(appender => appender.log(Level.DEBUG, message, ...optionalParams));
-    });
+    logWith(this.config, Level.DEBUG, message, ...optionalParams);
   }
 }
 
@@ -42,4 +38,21 @@ function mapFirstDefinedValue<K extends keyof ILoggerConfig, R>(
     return mapFirstDefinedValue(config.parent, key, fn);
   }
   return fn(config[key]);
+}
+
+function logWith(
+  config: ILoggerConfig | null,
+  level: Level,
+  message?: any,
+  // conflict with a prettier issue.
+  // tslint:disable-next-line:trailing-comma
+  ...optionalParams: any[]
+): void {
+  mapFirstDefinedValue(config, 'level', (configLevel: Level) => {
+    if (level >= configLevel) {
+      mapFirstDefinedValue(config, 'appenders', (appenders: IAppender[]) => {
+        appenders.map(appender => appender.log(level, message, ...optionalParams));
+      });
+    }
+  });
 }
