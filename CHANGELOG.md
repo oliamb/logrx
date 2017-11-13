@@ -5,15 +5,9 @@ All notable changes to this project will be documented in this file. See [standa
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/oliamb/logrx/compare/v0.0.1...v1.0.0) (2017-11-13)
 
-
-
-<a name="0.0.1"></a>
-## 0.0.1 (2017-11-13)
-
-
 ### Bug Fixes
 
-* console logger stick leverage the console API. ([ffacd95](https://github.com/oliamb/logrx/commit/ffacd95))
+* console logger leverage the console API. ([ffacd95](https://github.com/oliamb/logrx/commit/ffacd95))
 
 
 ### Features
