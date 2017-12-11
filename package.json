@@ -1,6 +1,6 @@
 {
   "name": "logrx",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Olivier Amblet",
   "description": "Small, configurable logging library on top of rxjs",
   "main": "./lib/index.js",
