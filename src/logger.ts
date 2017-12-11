@@ -12,7 +12,7 @@ export class DefaultLoggerImpl implements ILogger {
   }
 
   constructor(loggerConfig$: Observable<ILoggerConfig>) {
-    loggerConfig$.subscribe(config => {
+    loggerConfig$.subscribe((config: ILoggerConfig) => {
       this.config = config;
     });
   }
@@ -21,28 +21,56 @@ export class DefaultLoggerImpl implements ILogger {
     logWith(this.config, Level.ERROR, message, ...optionalParams);
   }
 
+  public errorc(callback: () => any[]): void {
+    logWith(this.config, Level.ERROR, callback());
+  }
+
   public log(message?: any, ...optionalParams: any[]): void {
     logWith(this.config, Level.DEBUG, message, ...optionalParams);
+  }
+
+  logc(callback: () => any[]): void {
+    logWith(this.config, Level.DEBUG, callback());
   }
 
   public debug(message?: any, ...optionalParams: any[]): void {
     logWith(this.config, Level.DEBUG, message, ...optionalParams);
   }
 
+  debugc(callback: () => any[]): void {
+    logWith(this.config, Level.DEBUG, callback());
+  }
+
   public exception(message?: string | undefined, ...optionalParams: any[]): void {
     logWith(this.config, Level.EXCEPTION, message, ...optionalParams);
+  }
+
+  exceptionc(callback: () => any[]): void {
+    logWith(this.config, Level.EXCEPTION, callback());
   }
 
   public info(message?: any, ...optionalParams: any[]): void {
     logWith(this.config, Level.INFO, message, ...optionalParams);
   }
 
+  infoc(callback: () => any[]): void {
+    logWith(this.config, Level.INFO, callback());
+  }
+
   public trace(message?: any, ...optionalParams: any[]): void {
     logWith(this.config, Level.TRACE, message, ...optionalParams);
   }
 
+  tracec(callback: () => any[]): void {
+    logWith(this.config, Level.TRACE, callback());
+  }
+
   public warn(message?: any, ...optionalParams: any[]): void {
     logWith(this.config, Level.WARN, message, ...optionalParams);
+  }
+
+  warnc(callback: () => any[]): void {
+    logWith(this.config, Level.WARN, callback());
   }
 }
 
