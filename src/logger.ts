@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators/map';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Configuration } from './configuration';
 import { Level } from './const';
 import { IAppender, ILogger, ILoggerConfig } from './types';
@@ -29,7 +29,7 @@ export class DefaultLoggerImpl implements ILogger {
     logWith(this.config, Level.DEBUG, message, ...optionalParams);
   }
 
-  logc(callback: () => any[]): void {
+  public logc(callback: () => any[]): void {
     logWith(this.config, Level.DEBUG, callback());
   }
 
@@ -37,7 +37,7 @@ export class DefaultLoggerImpl implements ILogger {
     logWith(this.config, Level.DEBUG, message, ...optionalParams);
   }
 
-  debugc(callback: () => any[]): void {
+  public debugc(callback: () => any[]): void {
     logWith(this.config, Level.DEBUG, callback());
   }
 
@@ -45,7 +45,7 @@ export class DefaultLoggerImpl implements ILogger {
     logWith(this.config, Level.EXCEPTION, message, ...optionalParams);
   }
 
-  exceptionc(callback: () => any[]): void {
+  public exceptionc(callback: () => any[]): void {
     logWith(this.config, Level.EXCEPTION, callback());
   }
 
@@ -53,7 +53,7 @@ export class DefaultLoggerImpl implements ILogger {
     logWith(this.config, Level.INFO, message, ...optionalParams);
   }
 
-  infoc(callback: () => any[]): void {
+  public infoc(callback: () => any[]): void {
     logWith(this.config, Level.INFO, callback());
   }
 
@@ -61,7 +61,7 @@ export class DefaultLoggerImpl implements ILogger {
     logWith(this.config, Level.TRACE, message, ...optionalParams);
   }
 
-  tracec(callback: () => any[]): void {
+  public tracec(callback: () => any[]): void {
     logWith(this.config, Level.TRACE, callback());
   }
 
@@ -69,7 +69,7 @@ export class DefaultLoggerImpl implements ILogger {
     logWith(this.config, Level.WARN, message, ...optionalParams);
   }
 
-  warnc(callback: () => any[]): void {
+  public warnc(callback: () => any[]): void {
     logWith(this.config, Level.WARN, callback());
   }
 }

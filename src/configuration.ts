@@ -1,11 +1,7 @@
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { combineLatest } from 'rxjs/operators/combineLatest';
-import { map } from 'rxjs/operators/map';
-import { tap } from 'rxjs/operators/tap';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { combineLatest, map, tap } from 'rxjs/operators';
 import { Level, ROOT_LOGGER_NAME } from './const';
 import { DefaultLoggerConfigImpl } from './logger-config';
-import { getLogger } from './logger-global-context';
 import { RootLoggerConfigImpl } from './root-logger-config';
 import { IAppender, ILoggerConfig } from './types';
 

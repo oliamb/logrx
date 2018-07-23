@@ -1,10 +1,8 @@
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { Level } from './const';
 import { DefaultLoggerImpl } from './logger';
-import { DefaultLoggerConfigImpl } from './logger-config';
 import { RootLoggerConfigImpl } from './root-logger-config';
 import { behaveLikeAConsole, IFactory } from './testing';
-import { ILogger } from './types';
 
 describe('DefaultLoggerImpl', () => {
   behavesLikeALogger(loggerConfig$ => new DefaultLoggerImpl(loggerConfig$));
