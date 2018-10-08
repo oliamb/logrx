@@ -1,5 +1,4 @@
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Level } from './const';
 import { RootLoggerConfigImpl } from './root-logger-config';
 import { IAppender, IConsole, ILazyConsole, ILogger, ILoggerConfig } from './types';

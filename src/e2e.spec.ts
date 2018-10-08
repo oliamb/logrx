@@ -14,9 +14,12 @@ describe('behaviour', () => {
   it('should accept custom appenders', () => {
     const log = jasmine.createSpy('log');
 
-    addAppenderFactory('custom', (): IAppender => {
-      return { log };
-    });
+    addAppenderFactory(
+      'custom',
+      (): IAppender => {
+        return { log };
+      },
+    );
 
     configure({
       appenders: ['custom'],

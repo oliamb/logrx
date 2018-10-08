@@ -1,17 +1,7 @@
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { combineLatest } from 'rxjs/observable/combineLatest';
-import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
-import { map } from 'rxjs/operators/map';
-import { startWith } from 'rxjs/operators/startWith';
-import { Subject } from 'rxjs/Subject';
 import { Configuration } from './configuration';
-import { ConsoleAppender } from './console.appender';
-import { Level, ROOT_LOGGER_NAME } from './const';
+import { ROOT_LOGGER_NAME } from './const';
 import { DefaultLoggerImpl } from './logger';
-import { DefaultLoggerConfigImpl } from './logger-config';
-import { RootLoggerConfigImpl } from './root-logger-config';
-import { AppenderFactory, IAppender, IConfigDescriptor, ILogger, ILoggerConfig } from './types';
+import { AppenderFactory, IConfigDescriptor, ILogger } from './types';
 
 export class LoggerContext {
   private appenderFactories: { [name: string]: AppenderFactory } = {};
